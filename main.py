@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from fastapi import FastAPI
+from fastapi import FastAPI,Body
 from typing import List
 from models import User, Gender, Role
 
@@ -23,3 +23,7 @@ async def say_hello(name: str):
 @app.get("/api/v1/users")
 async def fetch_users():
     return db
+@app.post("/api/v1/users")
+async def create_user(user: User = Body(...)):
+    db.append(user)
+    return {"user": user}
